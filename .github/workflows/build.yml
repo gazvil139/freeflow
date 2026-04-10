@@ -2,9 +2,9 @@ name: Build FreeFlow APK
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
   workflow_dispatch:
 
 jobs:
