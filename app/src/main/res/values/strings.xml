@@ -457,3 +457,4 @@
     <string name="privilege_module_restart_notification_message">LSPosed module updated. Reboot to apply changes.</string>
     <string name="privilege_module_restart_channel">LSPosed Module</string>
 </resources>
+
