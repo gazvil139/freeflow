@@ -1,0 +1,51 @@
+name: Build FreeFlow APK
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.23'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Build libbox
+      run: |
+        git submodule update --init --recursive
+        cd sing-box
+        make lib_android
+        mkdir -p ../app/libs
+        cp libbox.aar ../app/libs/
+    
+    - name: Build APK
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleRelease --no-daemon
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: FreeFlow-APK
+        path: app/build/outputs/apk/release/*.apk
+        retention-days: 30

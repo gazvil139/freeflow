@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "name": "Blocked -> Proxy",
+  "description": "Blocked sites forced through proxy tunnel",
+  "rules": {
+    "domain_suffix": [
+      "instagram.com",
+      "cdninstagram.com",
+      "twitter.com",
+      "x.com",
+      "twimg.com",
+      "facebook.com",
+      "fbcdn.net",
+      "threads.net",
+      "whatsapp.com",
+      "whatsapp.net",
+      "linkedin.com",
+      "youtube.com",
+      "googlevideo.com",
+      "ytimg.com",
+      "ggpht.com",
+      "twitch.tv",
+      "ttvnw.net",
+      "spotify.com",
+      "scdn.co",
+      "netflix.com",
+      "nflxvideo.net",
+      "disneyplus.com",
+      "openai.com",
+      "claude.ai",
+      "anthropic.com",
+      "midjourney.com",
+      "perplexity.ai",
+      "suno.ai",
+      "suno.com",
+      "bbc.com",
+      "bbc.co.uk",
+      "meduza.io"
+    ]
+  }
+}

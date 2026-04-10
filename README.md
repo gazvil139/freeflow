@@ -1,32 +1,28 @@
-# SFA
+# 🌐 FreeFlow
 
-Experimental Android client for sing-box, the universal proxy platform.
+Free internet access app for Russia. Built on sing-box.
 
-## Documentation
+## Features
+- 🛡️ DPI bypass (TLS fragmentation, TCP desync)
+- 🔀 Smart routing: Russian sites direct, blocked sites through proxy
+- 🔐 Encrypted DNS (DoH/DoT)
+- 📱 Support: VLESS, Trojan, Shadowsocks, Hysteria2, WireGuard
+- ⚡ Auto-reconnect, Kill Switch
+- 🏛️ Bypass: Gosuslugi, banks, VK, Yandex go direct
+- 📺 Proxy: YouTube, Instagram, ChatGPT through tunnel
 
-https://sing-box.sagernet.org/installation/clients/sfa/
+## Download
+Go to [Actions](../../actions) tab → latest build → download APK.
+
+## Build
+```bash
+git clone --recursive https://github.com/gazvil139/freeflow.git
+cd freeflow
+# Build libbox
+cd sing-box && make lib_android && cp libbox.aar ../app/libs/ && cd ..
+# Build APK
+./gradlew assembleRelease
+```
 
 ## License
-
-```
-Copyright (C) 2022 by nekohasekai <contact-sagernet@sekai.icu>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-In addition, no derivative work may use the name or imply association
-with this application without prior consent.
-```
-
-Under the license, that forks of the app are not allowed to be listed on F-Droid or other app stores
-under the original name.
+GPL-3.0
