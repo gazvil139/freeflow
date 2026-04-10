@@ -68,7 +68,7 @@ android {
 
     defaultConfig {
         applicationId = "io.nekohasekai.sfa"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = getVersionProps("VERSION_CODE").toInt()
         versionName = getVersionProps("VERSION_NAME")
@@ -111,7 +111,7 @@ android {
             minSdk = 23
         }
         create("otherLegacy") {
-            minSdk = 21
+            minSdk = 23
         }
     }
 
@@ -364,3 +364,4 @@ spotless {
         googleJavaFormat()
     }
 }
+
