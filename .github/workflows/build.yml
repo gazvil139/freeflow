@@ -24,14 +24,11 @@ jobs:
     - name: Download libbox
       run: |
         mkdir -p app/libs
-        LIBBOX_URL=$(curl -s https://api.github.com/repos/sagernet/sing-box/releases/latest | grep -o 'https://[^"]*libbox[^"]*\.aar\.gz' | head -1)
-        if [ -z "$LIBBOX_URL" ]; then
-          curl -sL "https://github.com/SagerNet/sing-box/releases/download/v1.11.1/libbox-1.11.1.aar.gz" -o libbox.aar.gz
-        else
-          curl -sL "$LIBBOX_URL" -o libbox.aar.gz
-        fi
-        gunzip libbox.aar.gz || mv libbox.aar.gz libbox.aar
-        mv libbox.aar app/libs/
+        # Download from singbox-android/libbox releases
+        curl -sL "https://github.com/singbox-android/libbox/releases/download/v1.13.3/libbox-1.13.3.zip" -o libbox.zip
+        unzip -o libbox.zip -d libbox-tmp
+        cp libbox-tmp/libbox-*/libbox.aar app/libs/libbox.aar || cp libbox-tmp/libbox.aar app/libs/libbox.aar || find libbox-tmp -name "*.aar" -exec cp {} app/libs/libbox.aar \;
+        cp app/libs/libbox.aar app/libs/libbox-legacy.aar
         ls -la app/libs/
     
     - name: Accept licenses
@@ -40,7 +37,7 @@ jobs:
     - name: Build APK
       run: |
         chmod +x gradlew
-        ./gradlew assembleRelease --no-daemon
+        ./gradlew assembleOtherLegacyRelease --no-daemon
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
