@@ -11,9 +11,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
     
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -21,26 +18,24 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
     
-    - name: Setup Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.23'
-        cache: false
-    
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
-    - name: Install gomobile
+    - name: Download libbox
       run: |
-        go install golang.org/x/mobile/cmd/gomobile@latest
-        gomobile init
+        mkdir -p app/libs
+        LIBBOX_URL=$(curl -s https://api.github.com/repos/sagernet/sing-box/releases/latest | grep -o 'https://[^"]*libbox[^"]*\.aar\.gz' | head -1)
+        if [ -z "$LIBBOX_URL" ]; then
+          curl -sL "https://github.com/SagerNet/sing-box/releases/download/v1.11.1/libbox-1.11.1.aar.gz" -o libbox.aar.gz
+        else
+          curl -sL "$LIBBOX_URL" -o libbox.aar.gz
+        fi
+        gunzip libbox.aar.gz || mv libbox.aar.gz libbox.aar
+        mv libbox.aar app/libs/
+        ls -la app/libs/
     
-    - name: Build libbox
-      run: |
-        cd sing-box
-        go generate -tags with_gvisor ./cmd/libbox
-        mkdir -p ../app/libs
-        cp libbox.aar ../app/libs/
+    - name: Accept licenses
+      run: yes | sdkmanager --licenses || true
     
     - name: Build APK
       run: |
